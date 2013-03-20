@@ -9,13 +9,39 @@ namespace SomeTests
   [TestFixture()]
   public class Test
   {
-    [Test()]
-    public void CanRunProject()
+    ItemAger _itemAger;
+
+    [SetUp()]
+    public void SetUp()
     {
-      var itemAger = new ItemAger{ Items = new List<Item>() };
-        itemAger.UpdateQuality();
+      _itemAger = new ItemAger();
     }
 
+    [Test()]
+    public void CanRunItemAger()
+    {
+      _itemAger.Items = new List<Item>();
+      _itemAger.UpdateQuality();
+      Assert.DoesNotThrow(() => _itemAger.UpdateQuality());
+    }
+
+    [Test]
+    public void StandardItemQualityDecrementsAfterUpdate()
+    {
+      var items = new List<Item>{ new Item(){Name="std",SellIn=99,Quality=20}};
+      _itemAger.Items = items;
+      _itemAger.UpdateQuality();
+      Assert.That(items[0].Quality,Is.EqualTo(19));
+    }
+
+    [Test]
+    public void StandardItemSellInDecrementsAfterUpdate()
+    {
+      var items = new List<Item>{ new Item(){Name="std",SellIn=99,Quality=20}};
+      _itemAger.Items = items;
+      _itemAger.UpdateQuality();
+      Assert.That(items[0].SellIn,Is.EqualTo(98));
+    }
 
   }
 }
