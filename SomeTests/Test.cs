@@ -43,6 +43,61 @@ namespace SomeTests
       Assert.That(items[0].SellIn,Is.EqualTo(98));
     }
 
+    [Test]
+    public void StandardItemPastSellInQualityDoubleDecrementsAfterUpdate()
+    {
+      var items = new List<Item>{ new Item(){Name="std",SellIn=-1,Quality=20}};
+      _itemAger.Items = items;
+      _itemAger.UpdateQuality();
+      Assert.That(items[0].Quality,Is.EqualTo(18));
+    }
+
+    [Test]
+    public void BackstagePassesQualityIncreasesBy2WhereSellInLessThan10()
+    {
+      var items = new List<Item>{ new Item(){Name="Backstage passes to a TAFKAL80ETC concert",SellIn=9,Quality=20}};
+      _itemAger.Items = items;
+      _itemAger.UpdateQuality();
+      Assert.That(items[0].Quality,Is.EqualTo(22));
+    }
+
+    [Test]
+    public void BackstagePassesQualityZerosBy3WhereSellInBecomesLessThan0()
+    {
+      var items = new List<Item>{ new Item(){Name="Backstage passes to a TAFKAL80ETC concert",SellIn=0,Quality=20}};
+      _itemAger.Items = items;
+      _itemAger.UpdateQuality();
+      Assert.That(items[0].Quality,Is.EqualTo(0));
+    }
+
+    [Test]
+    public void BackstagePassesQualityIncreasesBy1IfSellinGreaterThan10()
+    {
+      var items = new List<Item>{ new Item(){Name="Aged Brie",SellIn=11,Quality=20}};
+      _itemAger.Items = items;
+      _itemAger.UpdateQuality();
+      Assert.That(items[0].Quality,Is.EqualTo(21));
+
+    }
+
+    [Test]
+    public void AgedBrieQualityIncreasesIfSellinNotLessThan0()
+    {
+      var items = new List<Item>{ new Item(){Name="Aged Brie",SellIn=5,Quality=20}};
+      _itemAger.Items = items;
+      _itemAger.UpdateQuality();
+      Assert.That(items[0].Quality,Is.EqualTo(21));
+
+    }
+
+    [Test]
+    public void SulfurasQualityNeverChanges()
+    {
+      var items = new List<Item>{ new Item(){Name="Aged Brie",SellIn=5,Quality=80}};
+      _itemAger.Items = items;
+      _itemAger.UpdateQuality();
+      Assert.That(items[0].Quality,Is.EqualTo(80));
+    }
   }
 }
 
