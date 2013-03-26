@@ -93,10 +93,19 @@ namespace SomeTests
     [Test]
     public void SulfurasQualityNeverChanges()
     {
-      var items = new List<Item>{ new Item(){Name="Aged Brie",SellIn=5,Quality=80}};
+      var items = new List<Item>{ new Item(){Name="Sulfuras, Hand of Ragnaros",SellIn=5,Quality=80}};
       _itemAger.Items = items;
       _itemAger.UpdateQuality();
       Assert.That(items[0].Quality,Is.EqualTo(80));
+    }
+
+    [Test]
+    public void QualityNeverIncreasesBeyond50()
+    {
+      var items = new List<Item>{ new Item(){Name="Aged Brie",SellIn=5,Quality=50}};
+      _itemAger.Items = items;
+      _itemAger.UpdateQuality();
+      Assert.That(items[0].Quality,Is.EqualTo(50));
     }
   }
 }
