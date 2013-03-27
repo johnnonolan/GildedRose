@@ -61,8 +61,21 @@ namespace SomeTests
       Assert.That(items[0].Quality,Is.EqualTo(22));
     }
 
+
     [Test]
-    public void BackstagePassesQualityZerosBy3WhereSellInBecomesLessThan0()
+    public void BackstagePassesQualityIncreasesBy3WhereSellInLessThan6()
+    {
+      var items = new List<Item>{ new Item(){Name="Backstage passes to a TAFKAL80ETC concert",SellIn=5,Quality=20},
+        new Item(){Name="Backstage passes to a TAFKAL80ETC concert",SellIn=6,Quality=20}};
+      _itemAger.Items = items;
+      _itemAger.UpdateQuality();
+      Assert.That(items[0].Quality,Is.EqualTo(23));
+      Assert.That(items[1].Quality,Is.EqualTo(22));
+    }
+
+    [Test]
+
+    public void BackstagePassesQualityZerosWhereSellInBecomesLessThan0()
     {
       var items = new List<Item>{ new Item(){Name="Backstage passes to a TAFKAL80ETC concert",SellIn=0,Quality=20}};
       _itemAger.Items = items;
@@ -71,7 +84,7 @@ namespace SomeTests
     }
 
     [Test]
-    public void BackstagePassesQualityIncreasesBy1IfSellinGreaterThan10()
+    public void AgedBrieQualityIncreasesBy1IfSellinGreaterThan10()
     {
       var items = new List<Item>{ new Item(){Name="Aged Brie",SellIn=11,Quality=20}};
       _itemAger.Items = items;
@@ -100,6 +113,7 @@ namespace SomeTests
     }
 
     [Test]
+
     public void QualityNeverIncreasesBeyond50()
     {
       var items = new List<Item>{ new Item(){Name="Aged Brie",SellIn=5,Quality=50}};

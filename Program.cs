@@ -71,14 +71,14 @@ using System;
               Items[index].Quality = Items[index].Quality + 1;
               if (Items[index].Name == "Backstage passes to a TAFKAL80ETC concert")
                 {
-                  if (Items[index].SellIn < 11)
+                  if (Items[index].SellIn < 10)
                     {
                       if (Items[index].Quality < 50)
                         {
                           Items[index].Quality = Items[index].Quality + 1;
                         }
                     }
-                  if (Items[index].SellIn < 6)
+                  if (Items[index].SellIn < 5)
                     {
                       if (Items[index].Quality < 50)
                         {
@@ -104,10 +104,10 @@ using System;
       for (var i = 0; i < Items.Count; i++)
       {
 
-        AugmentQuality(i);
-        
+
         DecrementSellIn(i);
-        
+        AugmentQuality(i);
+
         if (Items[i].SellIn < 0)
         {
           if (Items[i].Name != "Aged Brie")
