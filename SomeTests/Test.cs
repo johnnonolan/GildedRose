@@ -81,7 +81,7 @@ namespace SomeTests
       _itemAger.Items = items;
       _itemAger.UpdateQuality();
       Assert.That(items[0].Quality,Is.EqualTo(0));
-    }
+    }       
 
     [Test]
     public void AgedBrieQualityIncreasesBy1IfSellinGreaterThan10()
@@ -113,7 +113,6 @@ namespace SomeTests
     }
 
     [Test]
-
     public void QualityNeverIncreasesBeyond50()
     {
       var items = new List<Item>{ new Item(){Name="Aged Brie",SellIn=5,Quality=50}};

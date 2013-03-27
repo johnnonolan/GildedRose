@@ -88,7 +88,33 @@ using System;
                 }
             }
         }
-
+      if (Items[index].SellIn < 0)
+      {
+        if (Items[index].Name != "Aged Brie")
+        {
+          if (Items[index].Name != "Backstage passes to a TAFKAL80ETC concert")
+          {
+            if (Items[index].Quality > 0)
+            {
+              if (Items[index].Name != "Sulfuras, Hand of Ragnaros")
+              {
+                Items[index].Quality = Items[index].Quality - 1;
+              }
+            }
+          }
+          else
+          {
+            Items[index].Quality = Items[index].Quality - Items[index].Quality;
+          }
+        }
+        else
+        {
+          if (Items[index].Quality < 50)
+          {
+            Items[index].Quality = Items[index].Quality + 1;
+          }
+        }
+      }
     }
 
     void DecrementSellIn(int i)
@@ -108,33 +134,7 @@ using System;
         DecrementSellIn(i);
         AugmentQuality(i);
 
-        if (Items[i].SellIn < 0)
-        {
-          if (Items[i].Name != "Aged Brie")
-          {
-            if (Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
-            {
-              if (Items[i].Quality > 0)
-              {
-                if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-                {
-                  Items[i].Quality = Items[i].Quality - 1;
-                }
-              }
-            }
-            else
-            {
-              Items[i].Quality = Items[i].Quality - Items[i].Quality;
-            }
-          }
-          else
-          {
-            if (Items[i].Quality < 50)
-            {
-              Items[i].Quality = Items[i].Quality + 1;
-            }
-          }
-        }
+
       }
     }
 
