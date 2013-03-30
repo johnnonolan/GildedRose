@@ -2,17 +2,16 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
     <Files>
-      <File FileName="SomeTests/Test.cs" Line="115" Column="11" />
+      <File FileName="SomeTests/Test.cs" Line="1" Column="1" />
       <File FileName="AssemblyInfo.cs" Line="1" Column="1" />
-      <File FileName="Program.cs" Line="24" Column="13" />
-      <File FileName="IDegradable.cs" Line="10" Column="3" />
+      <File FileName="Program.cs" Line="58" Column="4" />
+      <File FileName="IDegradable.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="GildedRose.Console" expanded="True">
+          <Node name="GildedRose.Console" expanded="True" selected="True">
             <Node name="References" expanded="True" />
-            <Node name="Program.cs" selected="True" />
           </Node>
           <Node name="SomeTests" expanded="True">
             <Node name="References" expanded="True" />

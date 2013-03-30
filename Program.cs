@@ -34,30 +34,55 @@ using System;
               }
         }
 
-  public class Item
-  {
-      public string Name { get; set; }
-      
-      public int SellIn { get; set; }
-      
-      public int Quality { get; set; }
-  }
-
-
-  public class SulfurasDegrader:  IDegradable
-  {
-    public void AugmentQuality(Item item)
+    public class Item
     {
+        public string Name { get; set; }
 
-    }
+        public int SellIn { get; set; }
 
-    public void DecreaseSellIn(Item item )
-    {
-
+        public int Quality { get; set; }
     }
 
 
-  }
+    public class SulfurasDegrader:  IDegradable
+    {
+      public void AugmentQuality(Item item)
+      {
+
+      }
+
+      public void DecreaseSellIn(Item item )
+      {
+
+      }
+    }
+
+    public class StandardDegrader:  IDegradable
+    {
+        public void AugmentQuality(Item item)
+        {
+            if(item.Quality >0)
+                item.Quality--;
+        }
+
+        public void DecreaseSellIn(Item item)
+        {
+            item.SellIn--;
+        }
+    }
+
+    public class DegraderFactory
+    {
+        public static IDegradable GetDegrader(Item item)
+        {
+            switch (item.Name) {
+                case "Sulfuras, Hand of Ragnaros": return new SulfurasDegrader();
+                case "Aged Brie": return new BrieDegrader();
+                case "Backstage passes to a TAFKAL80ETC concert": return new BackStageDegrader();
+                default: return new StandardDegrader();
+            }
+        }
+    }
 
   public class ItemAger 
   {
@@ -65,45 +90,9 @@ using System;
 
     void AugmentQuality(int index)
     {
-      IDegradable degrader = new SulfurasDegrader();
-      if (Items[index].Name == "Sulfuras, Hand of Ragnaros")
-      {
+        IDegradable degrader = DegraderFactory.GetDegrader(Items[index]);
         degrader.AugmentQuality(Items[index]);
-        //degrader.DecreaseSellIn();
-        return;
-      }
 
-        if (Items[index].Name != "Aged Brie" && Items[index].Name != "Backstage passes to a TAFKAL80ETC concert")
-        {
-            if (Items[index].Quality > 0)
-            {
-                Items[index].Quality = Items[index].Quality - 1;
-            }
-        }
-        else
-        {
-            if (Items[index].Quality < 50)
-            {
-                Items[index].Quality = Items[index].Quality + 1;
-                if (Items[index].Name == "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    if (Items[index].SellIn < 10)
-                    {
-                        if (Items[index].Quality < 50)
-                        {
-                            Items[index].Quality = Items[index].Quality + 1;
-                        }
-                    }
-                    if (Items[index].SellIn < 5)
-                    {
-                        if (Items[index].Quality < 50)
-                        {
-                            Items[index].Quality = Items[index].Quality + 1;
-                        }
-                    }
-                }
-            }
-        }
         if (Items[index].SellIn < 0)
         {
             if (Items[index].Name != "Aged Brie")

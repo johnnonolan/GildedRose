@@ -104,6 +104,17 @@ namespace SomeTests
     }
 
     [Test]
+    public void AgedBrieQualityIncreasesBy1IfSellinAt0()
+    {
+      var items = new List<Item>{ new Item(){Name="Aged Brie",SellIn=0,Quality=20}};
+      _itemAger.Items = items;
+      _itemAger.UpdateQuality();
+      Assert.That(items[0].Quality,Is.EqualTo(21));
+      
+    }
+
+
+    [Test]
     public void SulfurasQualityNeverChanges()
     {
       var items = new List<Item>{ new Item(){Name="Sulfuras, Hand of Ragnaros",SellIn=5,Quality=80}};
