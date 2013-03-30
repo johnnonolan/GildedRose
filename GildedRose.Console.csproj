@@ -38,6 +38,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="IDegradable.cs" />
     <Compile Include="BrieDegrader.cs" />
+    <Compile Include="SulfurasDegrader.cs" />
+    <Compile Include="StandardDegrader.cs" />
+    <Compile Include="ConjouredDegrader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

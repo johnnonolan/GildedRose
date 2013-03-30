@@ -21,6 +21,11 @@ namespace GildedRose.Console
     {
         public void AugmentQuality(Item item)
         {
+            if (item.SellIn <= 0)
+            {
+                item.Quality = 0;
+                return;
+            }
             if (item.Quality < 50)
             {
                 if (item.SellIn < 5)

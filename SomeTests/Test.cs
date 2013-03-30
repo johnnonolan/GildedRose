@@ -90,7 +90,6 @@ namespace SomeTests
       _itemAger.Items = items;
       _itemAger.UpdateQuality();
       Assert.That(items[0].Quality,Is.EqualTo(21));
-
     }
 
     [Test]
@@ -100,7 +99,6 @@ namespace SomeTests
       _itemAger.Items = items;
       _itemAger.UpdateQuality();
       Assert.That(items[0].Quality,Is.EqualTo(21));
-
     }
 
     [Test]
@@ -109,8 +107,7 @@ namespace SomeTests
       var items = new List<Item>{ new Item(){Name="Aged Brie",SellIn=0,Quality=20}};
       _itemAger.Items = items;
       _itemAger.UpdateQuality();
-      Assert.That(items[0].Quality,Is.EqualTo(21));
-      
+      Assert.That(items[0].Quality,Is.EqualTo(21));  
     }
 
 
@@ -130,6 +127,15 @@ namespace SomeTests
       _itemAger.Items = items;
       _itemAger.UpdateQuality();
       Assert.That(items[0].Quality,Is.EqualTo(50));
+    }
+
+    [Test]
+    public void ConjuredItemDegradesBy2WhenOverSellIn()
+    {
+      var items = new List<Item>{ new Item(){Name="Conjured Mana Cake",SellIn=10,Quality=7}};
+      _itemAger.Items = items;
+      _itemAger.UpdateQuality();
+      Assert.That(items[0].Quality,Is.EqualTo(5));
     }
   }
 }

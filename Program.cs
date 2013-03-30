@@ -43,42 +43,16 @@ using System;
         public int Quality { get; set; }
     }
 
-
-    public class SulfurasDegrader:  IDegradable
-    {
-      public void AugmentQuality(Item item)
-      {
-
-      }
-
-      public void DecreaseSellIn(Item item )
-      {
-
-      }
-    }
-
-    public class StandardDegrader:  IDegradable
-    {
-        public void AugmentQuality(Item item)
-        {
-            if(item.Quality >0)
-                item.Quality--;
-        }
-
-        public void DecreaseSellIn(Item item)
-        {
-            item.SellIn--;
-        }
-    }
-
     public class DegraderFactory
     {
         public static IDegradable GetDegrader(Item item)
         {
-            switch (item.Name) {
+            switch (item.Name) 
+            {
                 case "Sulfuras, Hand of Ragnaros": return new SulfurasDegrader();
                 case "Aged Brie": return new BrieDegrader();
                 case "Backstage passes to a TAFKAL80ETC concert": return new BackStageDegrader();
+                case "Conjured Mana Cake": return new ConjouredDegrader();
                 default: return new StandardDegrader();
             }
         }
@@ -88,57 +62,24 @@ using System;
   {
     public IList<Item> Items;
 
-    void AugmentQuality(int index)
+    void AugmentQuality(Item item)
     {
-        IDegradable degrader = DegraderFactory.GetDegrader(Items[index]);
-        degrader.AugmentQuality(Items[index]);
-
-        if (Items[index].SellIn < 0)
-        {
-            if (Items[index].Name != "Aged Brie")
-            {
-                if (Items[index].Name != "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    if (Items[index].Quality > 0)
-                    {
-                        Items[index].Quality = Items[index].Quality - 1;
-                    }
-                }
-                else
-                {
-                    Items[index].Quality = Items[index].Quality - Items[index].Quality;
-                }
-            }
-            else
-            {
-                if (Items[index].Quality < 50)
-                {
-                    Items[index].Quality = Items[index].Quality + 1;
-                }
-            }
-        }
+        IDegradable degrader = DegraderFactory.GetDegrader(item);
+        degrader.AugmentQuality(item);
     }
 
     void DecrementSellIn(Item item)
     {
-        IDegradable degrader = new SulfurasDegrader();
-        if (item.Name == "Sulfuras, Hand of Ragnaros")
-        {
-          //degrader.AugmentQuality();
-          degrader.DecreaseSellIn(item);
-          return;
-        }
-
-        item.SellIn = item.SellIn - 1;
-
+        IDegradable degrader = DegraderFactory.GetDegrader(item);
+        degrader.DecreaseSellIn(item);
     }
     
     public void UpdateQuality()
     {
-        for (var i = 0; i < Items.Count; i++)
+        foreach (var item in Items) 
         {
-            DecrementSellIn(Items[i]);
-            AugmentQuality(i);
+            DecrementSellIn(item);
+            AugmentQuality(item);
         }
     }
 
